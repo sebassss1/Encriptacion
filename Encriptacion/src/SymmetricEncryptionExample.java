@@ -9,13 +9,17 @@ public class SymmetricEncryptionExample {
     public static void main(String[] args) throws Exception {
         // Generar una clave secreta
         // Clave personalizada (debe tener 16, 24 o 32 bytes para AES-128, AES-192 o AES-256, respectivamente)
-        String clavePersonalizada = "Clave";//"claveSecreta1234";
+        String clavePersonalizada = "claveSecreta1234";
 
         // Convertir la clave a bytes
         byte[] claveBytes = clavePersonalizada.getBytes();
 
         // Crear una instancia de SecretKeySpec con la clave
         SecretKey secretKey = new SecretKeySpec(claveBytes, "AES");
+
+        //Simulamos el error
+        String claveFalsa = "clavePirata99999";
+        SecretKey secretKeyFalsa = new SecretKeySpec(claveFalsa.getBytes(), "AES");
 
         // Mensaje a cifrar
         String message = "Hola, este es un mensaje secreto";
@@ -26,8 +30,10 @@ public class SymmetricEncryptionExample {
         System.out.println("Mensaje cifrado: " + Base64.getEncoder().encodeToString(encryptedMessage));
 
         // Descifrar el mensaje
-        String decryptedMessage = decrypt(encryptedMessage, secretKey);
+        //String decryptedMessage = decrypt(encryptedMessage, secretKey);
 
+        // Intentamos descifrar usando la clave FALSA
+        String decryptedMessage = decrypt(encryptedMessage, secretKeyFalsa);
         System.out.println("Mensaje descifrado: " + decryptedMessage);
     }
 
